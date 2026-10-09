@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración | Hotel Punta Ballena</title><link rel="stylesheet" href="styles.css">
+  <style>
+    body{background:#f1f3ed}.admin-shell{max-width:1120px;margin:0 auto;padding:48px 24px}.admin-top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:30px}.admin-top h1{font-size:40px;color:var(--forest);margin:0}.admin-panel{background:white;padding:26px;border:1px solid var(--line);border-radius:12px;margin:18px 0}.admin-panel h2{font-size:25px;margin-bottom:12px}.notice{background:#f6f0df;padding:14px;border-left:3px solid #c9825c;font-size:13px}.admin-form{display:grid;gap:12px;max-width:460px}.admin-form input{padding:12px;border:1px solid var(--line)}.admin-form button{padding:12px;background:var(--forest);color:white;border:0;cursor:pointer}.admin-table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--leaf)}.admin-status{color:var(--muted);font-size:13px}.backlink{color:var(--forest);font-weight:bold;font-size:13px}@media(max-width:600px){.admin-top{align-items:flex-start;flex-direction:column}.admin-shell{padding:28px 14px}}
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="admin-top"><div><p class="eyebrow dark">HOTEL PUNTA BALLENA</p><h1>Administración</h1></div><a class="backlink" href="index.html">← Ver sitio público</a></div>
+    <div class="notice"><strong>Versión inicial:</strong> esta pantalla todavía no tiene autenticación conectada. No la publiques como panel operativo ni introduzcas contraseñas reales hasta configurar Supabase Auth y las políticas de seguridad indicadas en README.md.</div>
+    <section class="admin-panel" id="loginPanel">
+      <h2>Acceso del administrador</h2>
+      <p>El acceso real se activará con Supabase Auth. No se ha creado una contraseña predeterminada.</p>
+      <form id="loginForm" class="admin-form">
+        <label>Correo electrónico<input type="email" name="email" required autocomplete="username" placeholder="admin@tudominio.com"></label>
+        <label>Contraseña<input type="password" name="password" required autocomplete="current-password" placeholder="Contraseña de administrador"></label>
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      <p id="loginMessage" class="admin-status" role="status">Primero configura las credenciales y el usuario administrador siguiendo la guía.</p>
+    </section>
+    <section class="admin-panel">
+      <h2>Reservas recientes</h2>
+      <p class="admin-status" id="reservationStatus">Las reservas aparecerán aquí cuando se implemente y verifique el acceso administrativo seguro.</p>
+      <div class="admin-table-wrap"><table><thead><tr><th>Cliente</th><th>Servicio</th><th>Fecha</th><th>Personas</th><th>Estado</th><th>Comprobante</th></tr></thead><tbody id="reservationRows"><tr><td colspan="6">Todavía no hay datos conectados.</td></tr></tbody></table></div>
+    </section>
+    <section class="admin-panel">
+      <h2>Próximos módulos</h2>
+      <ul><li>Revisión privada de comprobantes SINPE.</li><li>Confirmación o rechazo de pagos.</li><li>Edición de tours, precios y disponibilidad.</li><li>Enlaces de Google Drive para fotografías y documentos.</li></ul>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const c = window.HOTEL_CONFIG || {};
+      document.getElementById("loginMessage").textContent = (!c.SUPABASE_URL || !c.SUPABASE_ANON_KEY) ? "Supabase aún no está configurado. No se ha iniciado sesión." : "El formulario de acceso aún necesita conectarse a Supabase Auth antes de utilizarse.";
+    });
+  </script>
+</body></html>
